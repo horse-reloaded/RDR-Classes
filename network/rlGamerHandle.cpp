@@ -3,8 +3,8 @@
 
 bool rage::rlGamerHandle::Serialize(rage::datBitBuffer& buf) const
 {
-	buf.Write<int>(m_Platform, 8);
-	if (m_Platform != 3)
+	buf.Write<rlPlatforms>(m_Platform, 8);
+	if (m_Platform != rlPlatforms::PC)
 		return false;
 	buf.Write<std::int64_t>(m_RockstarId, 64, true);
 	buf.Write<std::uint16_t>(m_UnkData, 16);
@@ -13,8 +13,8 @@ bool rage::rlGamerHandle::Serialize(rage::datBitBuffer& buf) const
 
 bool rage::rlGamerHandle::Deserialize(rage::datBitBuffer& buf)
 {
-	m_Platform = buf.Read<int>(8);
-	if (m_Platform != 3)
+	m_Platform = buf.Read<rlPlatforms>(8);
+	if (m_Platform != rlPlatforms::PC)
 		return false;
 	m_RockstarId = buf.Read<std::int64_t>(64, true);
 	m_UnkData = buf.Read<std::uint16_t>(16);

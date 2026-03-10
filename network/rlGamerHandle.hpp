@@ -6,26 +6,34 @@ namespace rage
 {
     class datBitBuffer;
 
+    enum rlPlatforms : uint8_t
+	{
+		UNK0,
+		XBOX,
+		PLAYSTATION,
+		PC,
+	};
+
 #pragma pack(push,8)
     class rlGamerHandle
     {
     public:
         int64_t m_RockstarId; // 0x00
         uint16_t m_UnkData;    // 0x08
-        uint8_t m_Platform;    // 0x0A
+		rlPlatforms m_Platform; // 0x0A
 
         inline rlGamerHandle() = default;
 
         inline rlGamerHandle(int64_t rockstar_id) :
             m_RockstarId(rockstar_id),
-            m_Platform(3),
+		    m_Platform(rlPlatforms::PC),
             m_UnkData(0)
         {
         }
 
         inline bool operator==(const rage::rlGamerHandle other)
         {
-            return m_Platform == other.m_Platform && m_UnkData == other.m_UnkData && m_RockstarId == other.m_RockstarId && m_Platform == 3;
+			return m_Platform == other.m_Platform && m_UnkData == other.m_UnkData && m_RockstarId == other.m_RockstarId && m_Platform == rlPlatforms::PC;
         }
 
         bool Serialize(rage::datBitBuffer& buf) const;
